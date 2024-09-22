@@ -15,5 +15,4 @@ The script leverages a variety of libraries to load, split, and embed documents,
 
 ## Prerequisites
 
-Before running the script, ensure you have the following dependencies installed. You can install them using pip install -r requirements.txt
-pip install python-dotenv sentence-transformers langchain-groq langchain-community langchain-core
+Before running the script, ensure you have the following dependencies installed. You can install them using pip install -r requirement.txt
