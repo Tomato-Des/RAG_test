@@ -49,12 +49,18 @@ llm = ChatGroq(
 )
 
 # Create the prompt template for the RAG process
-prompt_template = """Prioritize answering the question based on the provided context:
+prompt_template = """
+If you don't have enough information to answer a question confidently, state that you don't have sufficient information to provide a reliable answer.
+Avoid making assumptions or extrapolating beyond the data you have.
+If a question is ambiguous, ask for clarification instead of guessing the intent.
+Don't generate or invent information to fill gaps in your knowledge.
+If you're unsure about any part of your answer, explicitly state your uncertainty.
+    Prioritize answering the question based on the provided context:
 
     <context>
     {context}
     </context>
-
+    Do not try
     Question: {input}"""
 prompt = ChatPromptTemplate.from_template(prompt_template)
 
@@ -80,10 +86,22 @@ def ask_question():
             break
 
         # Run the RAG process
-        answer = retrieval_chain.invoke({"input": user_input})
+        result = retrieval_chain.invoke({"input": user_input}) #output only 'answer' key
+        """
+        keys in the result dictionary: 
+        - input
+        - context
+        - answer
+        (verified by print)
+        print("\nkeys in the result dictionary:")
+        for key in result.keys():
+            print(f"- {key}")
+        """
+        answer = result['answer'] #print only the answer part
 
         # Print the generated answer
         print("\nAnswer:", answer)
+        
 
 # Start the question-answering loop
 if __name__ == "__main__":
