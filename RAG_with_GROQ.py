@@ -38,7 +38,8 @@ documents = text_splitter.split_documents(docs)
 # Create a FAISS vector store from embedded documents
 #vector = FAISS.from_documents(documents, embedding_model) #create faiss vector store
 #vector.save_local('path to store your faiss vector store') # save to local
-vector = FAISS.load_local('path of your stored faiss vector store', embedding_model, allow_dangerous_deserialization=True) #load from local
+my_path = os.getenv('MY_PATH') #get path from enviroment variable
+vector = FAISS.load_local(my_path, embedding_model, allow_dangerous_deserialization=True) #load from local, you need to set <my_path> to your local faiss vector store path
 
 # Initialize the language model for the retrieval
 llm = ChatGroq(
