@@ -36,7 +36,9 @@ text_splitter = RecursiveCharacterTextSplitter()
 documents = text_splitter.split_documents(docs)
 
 # Create a FAISS vector store from embedded documents
-vector = FAISS.from_documents(documents, embedding_model)
+#vector = FAISS.from_documents(documents, embedding_model) #create faiss vector store
+#vector.save_local('path to store your faiss vector store') # save to local
+vector = FAISS.load_local('path of your stored faiss vector store', embedding_model, allow_dangerous_deserialization=True) #load from local
 
 # Initialize the language model for the retrieval
 llm = ChatGroq(
